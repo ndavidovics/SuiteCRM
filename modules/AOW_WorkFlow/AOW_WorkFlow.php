@@ -240,6 +240,11 @@ class AOW_WorkFlow extends Basic {
                         $table_alias = $rel;
                     }
                 }
+                
+                $data = $condition_module->field_defs[$condition->field];
+		if(  (isset($data['source']) && $data['source'] == 'custom_fields')) {
+                    $query['join'][$table_alias] = "LEFT JOIN ".$table_alias."_cstm on ".$table_alias.".id = ".$table_alias."_cstm.id_c";
+		}
 
                 if(isset($app_list_strings['aow_sql_operator_list'][$condition->operator])){
                     $where_set = false;
